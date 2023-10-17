@@ -1,0 +1,8 @@
+marinapiragibe\excecao\IngressoNaoEncontradoException.class
+marinapiragibe\util\FabricaDeDAOs.class
+marinapiragibe\modelo\Ingresso.class
+marinapiragibe\Principal.class
+marinapiragibe\util\FabricaDeEntityManager.class
+marinapiragibe\dao\impl\JPAIngressoDAO.class
+marinapiragibe\dao\IngressoDAO.class
+marinapiragibe\util\Util.class
