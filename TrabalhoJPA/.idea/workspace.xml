@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="79f8e79b-7026-4315-8eab-daa6eb05719c" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="showDialogWithAdvancedSettings" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2F8ecpI5QiyX23u9TnA865wgPmm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/carlos/Desktop/workspace-desweb/Exercicio01-Produto-Inclui-Altera-Exclui-Intellij&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\_workspaces\workspace-curso-intellij\02-hibernate-completos\JPA-01-Produto-Inclui-Altera-Exclui-completo" />
+      <recent name="D:\_workspaces\workspace-curso-de-java-02-jpa\JPA-01-Produto-Inclui-Altera-Exclui\src\main\java\com\carlosribeiro" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.carlosribeiro" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Principal">
+    <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.carlosribeiro.Principal" />
+      <module name="Exercicio01-Produto-Inclui-Altera-Exclui-completo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.carlosribeiro.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.carlosribeiro.jpa01.Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.carlosribeiro.jpa01.Principal" />
+      <module name="Produto-Inclui-Altera-Exclui-01-JPA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.carlosribeiro.jpa01.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Principal" />
+        <item itemvalue="Application.com.carlosribeiro.jpa01.Principal" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="79f8e79b-7026-4315-8eab-daa6eb05719c" name="Changes" comment="" />
+      <created>1663878222044</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663878222044</updated>
+      <workItem from="1681582411919" duration="3693000" />
+      <workItem from="1681593633533" duration="11000" />
+      <workItem from="1681593670984" duration="238000" />
+      <workItem from="1681614670596" duration="47000" />
+      <workItem from="1681654963685" duration="3000" />
+      <workItem from="1681654995824" duration="458000" />
+      <workItem from="1681663096425" duration="48000" />
+      <workItem from="1681663167637" duration="53000" />
+      <workItem from="1693344997438" duration="92000" />
+      <workItem from="1693346386177" duration="22000" />
+      <workItem from="1693397362448" duration="368000" />
+      <workItem from="1693398370056" duration="5683000" />
+      <workItem from="1693483344534" duration="21000" />
+      <workItem from="1693828907574" duration="7838000" />
+      <workItem from="1693855066156" duration="448000" />
+      <workItem from="1693855646613" duration="35000" />
+      <workItem from="1693960692886" duration="556000" />
+      <workItem from="1693963763294" duration="28000" />
+      <workItem from="1693963799360" duration="155000" />
+      <workItem from="1693966367664" duration="329000" />
+      <workItem from="1694001947905" duration="6873000" />
+      <workItem from="1694346244149" duration="35000" />
+      <workItem from="1695168119193" duration="137000" />
+      <workItem from="1695168331891" duration="585000" />
+      <workItem from="1695169381524" duration="72000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
