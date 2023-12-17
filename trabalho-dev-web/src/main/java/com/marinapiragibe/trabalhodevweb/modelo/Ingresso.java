@@ -11,8 +11,8 @@ public class Ingresso
 {
     private Long codIngresso;
     private String tituloFilme;
-    private LocalDate sessao;
-    private String sala;
+    private int poltrona;
+    private double preco;
     private LocalDate dataCompra;
 
     // ********* Construtores *********
@@ -22,10 +22,12 @@ public class Ingresso
     }
 
     public Ingresso(String tituloFilme,
-                    LocalDate sessao,
+                    Integer poltrona,
+                    double preco,
                     LocalDate dataCompra)
     {	this.tituloFilme = tituloFilme;
-        this.sessao = sessao;
+        this.poltrona = poltrona;
+        this.preco = preco;
         this.dataCompra = dataCompra;
     }
 
@@ -42,15 +44,15 @@ public class Ingresso
     {	return tituloFilme;
     }
 
-    @Column(name="sessao")
-    public LocalDate getSessao()
-    {	return sessao;
+    @Column(name="poltrona")
+    public int getPoltrona()
+    {	return poltrona;
     }
 
-//    @Column(name="sala")
-//    public String getSala()
-//    {	return sala;
-//    }
+    @Column(name="preco")
+    public double getPreco()
+    {	return preco;
+    }
 
     @Column(name="data_compra")
     public LocalDate getDataCompra()
@@ -67,13 +69,13 @@ public class Ingresso
     {	this.tituloFilme = tituloFilme;
     }
 
-    public void setSessao(LocalDate sessao)
-    {	this.sessao = sessao;
+    public void setPoltrona(int poltrona)
+    {	this.poltrona = poltrona;
     }
 
-//    public void setSala(String sala)
-//    {	this.sala = sala;
-//    }
+    public void setPreco(double preco)
+    {	this.preco = preco;
+    }
 
     public void setDataCompra(LocalDate dataCompra)
     {	this.dataCompra = dataCompra;
