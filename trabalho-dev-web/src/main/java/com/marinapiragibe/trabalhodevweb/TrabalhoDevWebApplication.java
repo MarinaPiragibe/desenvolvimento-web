@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootApplication
@@ -55,7 +54,7 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
 
 					umIngresso = new Ingresso(tituloFilme, poltrona, preco, Util.strToLocalDate(dataCompra));
 
-					ingressoService.inclui(umIngresso);
+					ingressoService.cadastrarIngresso(umIngresso);
 
 					System.out.println('\n' + "Ingresso número " +
 							umIngresso.getCodIngresso() + " incluído com sucesso!");
@@ -66,7 +65,7 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
 				case 3 -> {
 				}
 				case 4 -> {
-					List<Ingresso> produtos = ingressoService.recuperaIngressos();
+					List<Ingresso> produtos = ingressoService.recuperarIngressos();
 
 					for (Ingresso ingresso : produtos) {
 						System.out.println('\n' +
