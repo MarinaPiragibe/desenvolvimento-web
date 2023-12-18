@@ -50,7 +50,7 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
 					preco = Console.readDouble(
 							"Informe o preco do ingresso");
 					dataCompra = Console.readLine(
-							"Informe a data de compra do produto: ");
+							"Informe a data de compra do ingresso: ");
 
 					umIngresso = new Ingresso(tituloFilme, poltrona, preco, Util.strToLocalDate(dataCompra));
 
@@ -65,9 +65,9 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
 				case 3 -> {
 				}
 				case 4 -> {
-					List<Ingresso> produtos = ingressoService.recuperarIngressos();
+					List<Ingresso> ingressos = ingressoService.recuperarIngressos();
 
-					for (Ingresso ingresso : produtos) {
+					for (Ingresso ingresso : ingressos) {
 						System.out.println('\n' +
 								"  Id = " + ingresso.getCodIngresso() +
 								"  Titulo do Filme = " + ingresso.getTituloFilme() +

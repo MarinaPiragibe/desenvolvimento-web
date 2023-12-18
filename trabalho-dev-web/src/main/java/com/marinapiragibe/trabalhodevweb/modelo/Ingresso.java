@@ -1,5 +1,6 @@
 package com.marinapiragibe.trabalhodevweb.modelo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,17 +20,18 @@ public class Ingresso
     @Column(name="cod_ingresso")
     private Long codIngresso;
 
-    @Column(name="titulo_filme")
-    private String tituloFilme;
+        @Column(name="titulo_filme")
+        private String tituloFilme;
 
-    @Column(name="poltrona")
-    private int poltrona;
+        @Column(name="poltrona")
+        private int poltrona;
 
-    @Column(name="preco")
-    private double preco;
+        @Column(name="preco")
+        private double preco;
 
-    @Column(name="data_compra")
-    private LocalDate dataCompra;
+        @Column(name="data_compra")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        private LocalDate dataCompra;
 
     // ********* Construtores *********
 

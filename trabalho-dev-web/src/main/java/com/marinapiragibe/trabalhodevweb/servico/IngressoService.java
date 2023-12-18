@@ -7,13 +7,11 @@ import com.marinapiragibe.trabalhodevweb.modelo.Ingresso;
 import com.marinapiragibe.trabalhodevweb.repository.IngressoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@Component
 @Service
 public class IngressoService
 {
@@ -86,7 +84,7 @@ public class IngressoService
     public Ingresso recuperarIngressoPorId(Long id) {
         return ingressoRepository.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(
-                        "Produto número " + id + " não encontrado"));
+                        "Ingresso número " + id + " não encontrado"));
     }
 
 //    public List<Ingresso> recuperarIngressoFilmePorId(Long id) {
