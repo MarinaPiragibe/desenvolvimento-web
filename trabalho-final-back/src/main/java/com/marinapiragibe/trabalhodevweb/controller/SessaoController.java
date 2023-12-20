@@ -12,13 +12,13 @@ import java.util.List;
 
 @CrossOrigin("http://localhost:5173")
 @RestController
-@RequestMapping("sessao")
+@RequestMapping("sessoes")
 public class SessaoController {
 
     @Autowired
     private SessaoService sessaoService;
 
-    @GetMapping("sessoes")
+    @GetMapping
     public List<Sessao> recuperarSessoes() {
         return sessaoService.recuperarSessoes();
     }

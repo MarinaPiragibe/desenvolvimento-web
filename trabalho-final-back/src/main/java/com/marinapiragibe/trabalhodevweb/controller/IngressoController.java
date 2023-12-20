@@ -29,7 +29,7 @@ public class IngressoController {
         return ingressoService.recuperarIngressos();
     }
 
-    @PostMapping("cadastrar-ingresso")
+    @PostMapping 
     public Ingresso cadastrarIngresso(@RequestBody Ingresso ingresso) {
 
         sessaoService.recuperarSessaoPorId(ingresso.getSessao().getId());
