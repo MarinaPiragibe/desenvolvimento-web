@@ -7,6 +7,8 @@ import com.marinapiragibe.trabalhodevweb.modelo.Ingresso;
 import com.marinapiragibe.trabalhodevweb.repository.IngressoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -19,7 +21,7 @@ public class IngressoService
     private IngressoRepository ingressoRepository;
 
     public List<Ingresso> recuperarIngressos() {
-        return ingressoRepository.recuperarIngressosDoFilme();
+        return ingressoRepository.recuperIngressosComFilme();
     }
 
     public Ingresso cadastrarIngresso(Ingresso ingresso) {
@@ -31,18 +33,6 @@ public class IngressoService
         }
     }
 
-//    public Produto alterarProduto(Produto produto) {
-//        if (produto.getId() != null) {
-//            Supplier<EntidadeNaoEncontradaException> sup =
-//                    () -> new EntidadeNaoEncontradaException("Produto não encontrado.");
-//            produtoRepository.findById(produto.getId())
-//                    .orElseThrow(sup);
-//            return produtoRepository.save(produto);
-//        }
-//        else {
-//            throw new EntidadeTransienteException("Tentando alterar um objeto transiente.");
-//        }
-//    }
 
     @Transactional
     public Ingresso alterarIngresso(Ingresso ingresso) {
@@ -58,23 +48,6 @@ public class IngressoService
         }
     }
 
-//    @Transactional
-//    public Produto alterarProduto(Produto produto) {
-//        if (produto.getId() != null) {
-//            Produto umProduto = produtoRepository.findById(produto.getId())
-//                    .orElseThrow(
-//                            () -> new EntidadeNaoEncontradaException("Produto não encontrado."));
-//            umProduto.setNome(produto.getNome());
-//            umProduto.setPreco(produto.getPreco());
-//            umProduto.setDataCadastro(produto.getDataCadastro());
-//            umProduto.setCategoria(produto.getCategoria());
-//            return umProduto;
-//            // return produtoRepository.save(umProduto);
-//        }
-//        else {
-//            throw new EntidadeTransienteException("Tentando alterar um objeto transiente.");
-//        }
-//    }
 
     public void removerIngresso(Long id) {
         ingressoRepository.deleteById(id);
@@ -87,9 +60,24 @@ public class IngressoService
                         "Ingresso número " + id + " não encontrado"));
     }
 
-//    public List<Ingresso> recuperarIngressoFilmePorId(Long id) {
-//        return ingressoRepository.findByCategoriaId(id);
-//    }
+    public List<Ingresso> recuperarIngressosPorTituloFilme(String tituloFilme) {
+        return ingressoRepository.findBySessaoTituloFilme(tituloFilme);
+    }
+
+    public Page<Ingresso> recuperarIngressosPorHorarioDaSessaoComPaginacao(String horaInicio, Pageable pageable) {
+        if (!horaInicio.isEmpty())
+            return ingressoRepository.recuperarIngressosPorHorarioDaSessaoComPaginacao(horaInicio, pageable);
+        else
+            return ingressoRepository.recuperarIngressosComPaginacao(pageable);
+    }
+
+    public Page<Ingresso> recuperarIngressosPaginados(String tituloFilme, Pageable pageable) {
+        return ingressoRepository.recuperarIngressosPaginados(tituloFilme, pageable);
+    }
+
+
+
+
 
 
 }

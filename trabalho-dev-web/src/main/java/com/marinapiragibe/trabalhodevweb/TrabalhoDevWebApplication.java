@@ -1,6 +1,9 @@
 package com.marinapiragibe.trabalhodevweb;
 
 import com.marinapiragibe.trabalhodevweb.modelo.Ingresso;
+import com.marinapiragibe.trabalhodevweb.modelo.Sessao;
+import com.marinapiragibe.trabalhodevweb.repository.IngressoRepository;
+import com.marinapiragibe.trabalhodevweb.repository.SessaoRepository;
 import com.marinapiragibe.trabalhodevweb.servico.IngressoService;
 import com.marinapiragibe.trabalhodevweb.util.Util;
 import corejava.Console;
@@ -9,13 +12,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootApplication
 public class TrabalhoDevWebApplication implements CommandLineRunner {
 
 	@Autowired
-	IngressoService ingressoService;
+    IngressoRepository ingressoRepository;
+
+    @Autowired
+    SessaoRepository sessaoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrabalhoDevWebApplication.class, args);
@@ -24,63 +32,41 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		String tituloFilme;
-		int poltrona;
-		double preco;
-		String dataCompra;
-		Ingresso umIngresso;
+        Sessao nossoSonho = new Sessao("Nosso Sonho","14:00", 120);
+        sessaoRepository.save(nossoSonho);
 
-		boolean continua = true;
-		while (continua)
-		{	System.out.println('\n' + "O que você deseja fazer?");
-			System.out.println('\n' + "1. Cadastrar um ingresso no banco de dados");
-			System.out.println("2. Alterar um ingresso já existente");
-			System.out.println("3. Remover um ingresso do banco de dados");
-			System.out.println("4. Listar todos os ingressos do banco de dados");
-			System.out.println("5. Sair");
+        Sessao bastardosInglorios = new Sessao("Bastarodos Inglorios","22:00", 160);
+        sessaoRepository.save(bastardosInglorios);
 
-			int opcao = Console.readInt('\n' +
-					"Digite um número entre 1 e 5:");
+        Sessao dezCoisas = new Sessao("Dez coisas que odeio em você","17:00", 100);
+        sessaoRepository.save(dezCoisas);
 
-			switch (opcao) {
-				case 1 -> {
-					tituloFilme = Console.readLine('\n' +
-							"Informe o nome do filme: ");
-					poltrona = Console.readInt("Informa a poltrona: ");
-					preco = Console.readDouble(
-							"Informe o preco do ingresso");
-					dataCompra = Console.readLine(
-							"Informe a data de compra do ingresso: ");
 
-					umIngresso = new Ingresso(tituloFilme, poltrona, preco, Util.strToLocalDate(dataCompra));
+        Ingresso ingresso = new Ingresso(
+                10,
+                BigDecimal.valueOf(14.70),
+                nossoSonho,
+                LocalDate.now()
+        );
+        ingressoRepository.save(ingresso);
 
-					ingressoService.cadastrarIngresso(umIngresso);
+        Ingresso ingresso2 = new Ingresso(
+                15,
+                BigDecimal.valueOf(14.70),
+                bastardosInglorios,
+                LocalDate.now()
+        );
+        ingressoRepository.save(ingresso2);
 
-					System.out.println('\n' + "Ingresso número " +
-							umIngresso.getCodIngresso() + " incluído com sucesso!");
+        Ingresso ingresso3 = new Ingresso(
+                33,
+                BigDecimal.valueOf(14.70),
+                dezCoisas,
+                LocalDate.now()
+        );
+        ingressoRepository.save(ingresso3);
 
-				}
-				case 2 -> {
-				}
-				case 3 -> {
-				}
-				case 4 -> {
-					List<Ingresso> ingressos = ingressoService.recuperarIngressos();
 
-					for (Ingresso ingresso : ingressos) {
-						System.out.println('\n' +
-								"  Id = " + ingresso.getCodIngresso() +
-								"  Titulo do Filme = " + ingresso.getTituloFilme() +
-								"  Poltrona = " + ingresso.getPoltrona() +
-								"  Preco = " + Util.doubleToStr(ingresso.getPreco()) +
-								"  Data da Compra = " + Util.dateToStr(ingresso.getDataCompra()));
-					}
-				}
-				case 5 -> {
-					continua = false;
-				}
-				default -> System.out.println('\n' + "Opção inválida!");
-			}
-		}
-	}
+
+    }
 }
