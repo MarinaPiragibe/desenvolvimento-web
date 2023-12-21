@@ -2,7 +2,7 @@ import React from "react";
 import Ingresso from "../interfaces/ingresso";
 import { FieldValues, useForm } from "react-hook-form";
 import useCadastrarIngresso from "../hooks/useCadastrarIngresso";
-import useSessoes from "../hooks/useCategorias";
+import useSessoes from "../hooks/useSessoes";
 
 const CadastroDeIngressosForm = () => {
   const { mutate: cadastrarIngresso } = useCadastrarIngresso();
