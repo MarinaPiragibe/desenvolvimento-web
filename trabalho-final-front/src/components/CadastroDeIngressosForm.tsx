@@ -3,12 +3,55 @@ import Ingresso from "../interfaces/ingresso";
 import { FieldValues, useForm } from "react-hook-form";
 import useCadastrarIngresso from "../hooks/useCadastrarIngresso";
 import useSessoes from "../hooks/useSessoes";
+import dataValida from "../util/dataValida";
+import useApi from "../hooks/useApi";
+import Sessao from "../interfaces/sessao";
+import { URL_SESSOES } from "../util/constants";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const { recuperar } = useApi<Sessao>(URL_SESSOES);
+let sessoesValidas: Sessao[];
+
+const validaSessao = async (id: string) => {
+  if (!sessoesValidas) {
+    sessoesValidas = await recuperar();
+  }
+  const cat = sessoesValidas.find((sessao) => sessao.id === parseInt(id));
+  return cat;
+};
+
+
+const regexData = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
+//const regexImagem = /^[a-z]+\.(gif|jpg|png|bmp)$/;
+const schema = z.object({
+
+  sessao: z.string().refine(validaSessao, { message: "Sessão inválida." }),
+  dataCompra: z
+    .string()
+    .min(1, { message: "A data de cadastro deve ser informada." })
+    .regex(regexData, { message: "Data inválida." })
+    .refine(dataValida, { message: "Data inválida." }),
+  poltrona: z
+  .string()
+  .refine((value) => /^[0-9]+$/.test(value), { message: "O número da poltrona deve ser um número válido." })
+  .refine((value) => Number(value) >= 0, { message: "O número da poltrona deve ser um número válido." }),
+  preco: z
+  .string()
+  .refine((value) => /^\d+(\.\d{1,2})?$/.test(value), { message: "O preço deve ser um número válido com até duas casas decimais." })
+  .refine((value) => parseFloat(value) >= 0.1, { message: "O preço deve ser maior ou igual a R$ 0.10" }),
+
+});
+
+type FormIngresso = z.infer<typeof schema>;
 
 const CadastroDeIngressosForm = () => {
-  const { mutate: cadastrarIngresso } = useCadastrarIngresso();
+  const { mutate: cadastrarIngresso, error: errorCadastrar  } = useCadastrarIngresso();
   const { data: sessoes, error: errorSessoes } = useSessoes();
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState: { errors }} = useForm<FormIngresso>({
+    resolver: zodResolver(schema),
+    mode: "onSubmit"});
 
   const onSubmit = ({
     preco,
@@ -34,6 +77,7 @@ const CadastroDeIngressosForm = () => {
   };
 
   if (errorSessoes) throw errorSessoes;
+  if (errorCadastrar) throw errorCadastrar;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -42,10 +86,15 @@ const CadastroDeIngressosForm = () => {
         <div className="col-xl-10">
           <input
             {...register("poltrona")}
-            type="text"
+            type="number"
             id="poltrona"
-            className="form-control form-control-sm"
+            className={
+              errors.poltrona
+                ? "form-control form-control-sm is-invalid"
+                : "form-control form-control-sm"
+            }
           />
+          <div className="invalid-feedback">{errors.poltrona?.message}</div>
         </div>
       </div>
 
@@ -55,13 +104,20 @@ const CadastroDeIngressosForm = () => {
           <select
             {...register("sessao")}
             id="sessao"
-            className="form-control form-control-sm"
+            className={
+              errors.sessao
+                ? "form-control form-control-sm is-invalid"
+                : "form-control form-control-sm"
+            }
           >
             <option value="0">Selecione uma categoria</option>
             {sessoes?.map((sessao) => (
-              <option key={sessao.id} value={sessao.id}>{sessao.horaInicio}</option>
+              <option key={sessao.id} value={sessao.id}>
+                {sessao.horaInicio}
+              </option>
             ))}
           </select>
+          <div className="invalid-feedback">{errors.sessao?.message}</div>
         </div>
       </div>
 
@@ -72,8 +128,13 @@ const CadastroDeIngressosForm = () => {
             {...register("dataCompra")}
             type="text"
             id="dataCompra"
-            className="form-control form-control-sm"
+            className={
+              errors.dataCompra
+                ? "form-control form-control-sm is-invalid"
+                : "form-control form-control-sm"
+            }
           />
+          <div className="invalid-feedback">{errors.dataCompra?.message}</div>
         </div>
       </div>
 
@@ -86,15 +147,20 @@ const CadastroDeIngressosForm = () => {
             step="0.01"
             min="0"
             id="preco"
-            className="form-control form-control-sm"
+            className={
+              errors.preco
+                ? "form-control form-control-sm is-invalid"
+                : "form-control form-control-sm"
+            }
           />
+          <div className="invalid-feedback">{errors.preco?.message}</div>
         </div>
       </div>
 
       <div className="row mb-5">
         <div className="col-xl-10 offset-xl-2 text-end">
           <button id="botao" type="submit" className="btn btn-primary btn-sm">
-            <img src="/skin/database_add.png" /> Cadastrar
+             Cadastrar
           </button>
         </div>
       </div>
