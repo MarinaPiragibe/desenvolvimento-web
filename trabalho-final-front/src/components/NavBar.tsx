@@ -5,8 +5,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import useRecuperarItensCarrinho from "../hooks/useRecuperarItensCarrinho";
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPerson, faQuestionCircle, faShoppingCart, faSignIn } from '@fortawesome/free-solid-svg-icons';
-
+import { faQuestionCircle, faShoppingCart, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import logo_ceart from '../../assets/logo_ceart.png';
 
 
 function NavBar() {
@@ -24,7 +24,7 @@ function NavBar() {
           <Navbar bg="light" expand="md" className="navbar navbar-light bg-light navbar-expand-md ">
               <Container className="container mb-4">
                   <Navbar.Brand className="navbar-brand" href="/"> 
-                  CineUFF
+                  <img className="d-none d-md-block" src={logo_ceart} style={{ width: "60%" }} />
                   </Navbar.Brand>
                   <Navbar.Toggle className="navbar-toggler" aria-controls="menu" />
                   <Navbar.Collapse className="collapse navbar-collapse" id="menu">

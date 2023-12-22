@@ -50,10 +50,15 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         Sessao homemAranha = new Sessao("Homem-aranha: No aranhaverso","21:00", 110);
         sessaoRepository.save(homemAranha);
 
+        Sessao curtindoAVida = new Sessao("Curtindo a vida adoidado","21:00", 110);
+        sessaoRepository.save(curtindoAVida);
+
+        Sessao questaoTempo = new Sessao("Questão de Tempo","21:00", 110);
+        sessaoRepository.save(questaoTempo);
 
         Ingresso ingresso = new Ingresso(
                 10,
-                BigDecimal.valueOf(14.70),
+                BigDecimal.valueOf(16.15),
                 nossoSonho,
                 LocalDate.now()
         );
@@ -61,7 +66,7 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
 
         Ingresso ingresso2 = new Ingresso(
                 15,
-                BigDecimal.valueOf(14.70),
+                BigDecimal.valueOf(42.0),
                 bastardosInglorios,
                 LocalDate.now()
         );
@@ -83,6 +88,23 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         );
         ingressoRepository.save(ingresso4);
 
+        Ingresso ingresso5 = new Ingresso(
+                10,
+                BigDecimal.valueOf(30.40),
+                curtindoAVida,
+                LocalDate.now()
+        );
+        ingressoRepository.save(ingresso5);
+
+        Ingresso ingresso6 = new Ingresso(
+                37,
+                BigDecimal.valueOf(25.50),
+                questaoTempo,
+                LocalDate.now()
+        );
+        ingressoRepository.save(ingresso6);
+
+
         Carrinho carrinho = new Carrinho(
                 LocalDate.now()
         );
@@ -95,7 +117,7 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         item_carrinhoRepository.save(item1);
 
         Item_carrinho item2 = new Item_carrinho(
-                5,
+                3,
                 carrinho,
                 ingresso2
         );
@@ -109,7 +131,7 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         item_carrinhoRepository.save(item3);
 
         Item_carrinho item4 = new Item_carrinho(
-                1,
+                2,
                 carrinho,
                 ingresso4
         );
