@@ -7,8 +7,10 @@ import CadastroDeProdutosPage from '../pages/CadastroDeIngressosPage';
 import ListaDeIngressosPage from '../pages/ListaDeIngressosPage';
 import ErrorPage from '../pages/ErrorPage';
 import React from 'react';
-import DetalhesIngresso from '../pages/DetalhesPassagem';
+import DetalhesIngresso from '../pages/DetalhesIngresso';
 import CardsIngressoPorSessao from '../pages/CardsIngressoPorSessao';
+import HelpPage from '../pages/HelpPage';
+import SobrePage from '../pages/SobrePage';
 
 const router = createBrowserRouter([
     {
@@ -16,16 +18,22 @@ const router = createBrowserRouter([
         element: <Layout />,
         errorElement: <ErrorPage />,
         children: [
+            { path: "", element: <HomePage />,
+            children:[
                 {
-                    path: ":empresa?",
+                    path: ":sessao?",
                     element:<CardsIngressoPorSessao/>
-                },
-            { path: "", element: <HomePage /> },
+                },]
+            },
             { path: "listar-ingressos", element: <ListaDeIngressosPage /> },
             { path: "login", element: <LoginPage /> },            
             { path: "cadastrar-ingresso", element: <CadastroDeProdutosPage /> },            
             { path: "carrinho", element: <CarrinhoPage /> },
             { path: "detalhesIngresso", element: <DetalhesIngresso/>},
+            { path: "ajuda", element: <HelpPage /> },  
+            { path: "sobre", element: <SobrePage /> }, 
+            { path: "login", element: <LoginPage /> },            
+
         ]
     }
 ]);

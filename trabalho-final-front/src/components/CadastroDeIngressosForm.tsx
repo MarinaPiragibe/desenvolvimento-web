@@ -111,91 +111,92 @@ const CadastroDeIngressosForm = () => {
 
   return (
     <>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="row mb-2">
-        <div className="col-xl-2 fw-bold text-start align-self-center">Poltrona</div>
-        <div className="col-xl-10">
-          <input
-            {...register("poltrona")}
-            type="number"
-            id="poltrona"
-            className={
-              errors.poltrona
-                ? "form-control form-control-sm is-invalid"
-                : "form-control form-control-sm"
-            }
-          />
-          <div className="invalid-feedback">{errors.poltrona?.message}</div>
-        </div>
+  <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="row mb-2">
+      <div className="col-xl-2 fw-bold text-start align-self-center">Poltrona</div>
+      <div className="col-xl-10">
+        <input
+          {...register("poltrona")}
+          type="number"
+          id="poltrona"
+          className={
+            errors.poltrona
+              ? "form-control form-control-sm is-invalid"
+              : "form-control form-control-sm"
+          }
+        />
+        <div className="invalid-feedback">{errors.poltrona?.message}</div>
       </div>
+    </div>
 
-      <div className="row mb-2">
-        <div className="col-xl-2 fw-bold text-start align-self-center">Sessão</div>
-        <div className="col-xl-10">
-          <select
-            {...register("sessao")}
-            id="sessao"
-            className={
-              errors.sessao
-                ? "form-control form-control-sm is-invalid"
-                : "form-control form-control-sm"
-            }
-          >
-            <option value="0">Selecione uma Sessao</option>
-            {sessoes?.map((sessao) => (
-              <option key={sessao.id} value={sessao.id}>
-                {sessao.horaInicio}
-              </option>
-            ))}
-          </select>
-          <div className="invalid-feedback">{errors.sessao?.message}</div>
-        </div>
+    <div className="row mb-2">
+      <div className="col-xl-2 fw-bold text-start align-self-center">Sessão</div>
+      <div className="col-xl-10">
+        <select
+          {...register("sessao")}
+          id="sessao"
+          className={
+            errors.sessao
+              ? "form-control form-control-sm is-invalid"
+              : "form-control form-control-sm"
+          }
+        >
+          <option value="0">Selecione uma Sessao</option>
+          {sessoes?.map((sessao) => (
+            <option key={sessao.id} value={sessao.id}>
+              {sessao.horaInicio}
+            </option>
+          ))}
+        </select>
+        <div className="invalid-feedback">{errors.sessao?.message}</div>
       </div>
+    </div>
 
-      <div className="row mb-2">
-        <div className="col-xl-2 fw-bold text-start align-self-center">Preço</div>
-        <div className="col-xl-10">
-          <input
-            {...register("preco")}
-            type="number"
-            step="0.01"
-            min="0"
-            id="preco"
-            className={
-              errors.preco
-                ? "form-control form-control-sm is-invalid"
-                : "form-control form-control-sm"
-            }
-          />
-          <div className="invalid-feedback">{errors.preco?.message}</div>
-        </div>
+    <div className="row mb-2 d-flex justify-content-end">
+      <div className="col-xl-2 fw-bold text-start align-self-center">Preço</div>
+      <div className="col-xl-10">
+        <input
+          {...register("preco")}
+          type="number"
+          step="0.01"
+          min="0"
+          id="preco"
+          className={
+            errors.preco
+              ? "form-control form-control-sm is-invalid"
+              : "form-control form-control-sm"
+          }
+        />
+        <div className="invalid-feedback">{errors.preco?.message}</div>
       </div>
+    </div>
 
-      <div className="row mb-5">
-          <div className="col-xl-6">
-            <div className="row">
-              <div className="col-xl-10 offset-xl-2">
-                <button id="botao" type="submit" className="btn btn-primary btn-sm me-2">
-                    {ingressoSelecionado.codIngresso ? " Alterar" : " Cadastrar"}
-                </button>
-                <button
-                  onClick={() => {
-                    reset();
-                    console.log("click");
-                    tratarIngressoSelecionado({} as Ingresso);
-                  }}
-                  id="botao"
-                  type="button"
-                  className="btn btn-danger btn-sm"
-                > Cancelar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-    </form>
-    <DevTool control={control} />
-    </>
+    <div className="row mb-5">
+      <div className="col-xl-12 text-end">
+        <button
+          onClick={() => {
+            reset();
+            console.log("click");
+            tratarIngressoSelecionado({} as Ingresso);
+          }}
+          id="botao"
+          type="button"
+          className="btn btn-light btn-sm me-2"
+        >
+          Cancelar
+        </button>
+        <button
+          id="botao"
+          type="submit"
+          className="btn btn-primary btn-sm "
+        >
+          {ingressoSelecionado.codIngresso ? " Alterar" : " Cadastrar"}
+        </button>
+      </div>
+    </div>
+  </form>
+  <DevTool control={control} />
+</>
   );
 };
 

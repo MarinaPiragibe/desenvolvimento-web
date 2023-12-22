@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import useRecuperarItensCarrinho from "../hooks/useRecuperarItensCarrinho";
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPerson, faQuestionCircle, faShoppingCart, faSignIn } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -29,7 +31,7 @@ function NavBar() {
                       <Nav className="navbar-nav mr-auto">
                           <Nav.Link className="nav-link nav-item" href="/"> Home
                           </Nav.Link>
-                          <NavDropdown title="Compre" id="dropdownMenuButton">
+                          <NavDropdown title="Cinema" id="dropdownMenuButton">
                               <NavDropdown.Item className="dropdown-item" href="/listar-ingressos"> Ingressos
                               </NavDropdown.Item>
                               
@@ -41,14 +43,15 @@ function NavBar() {
                       </Navbar.Collapse>
                       <Navbar.Collapse className="justify-content-end" id="menu">
                       <Nav className="navbar-nav">
-                          <Nav.Link className="nav-link nav-item" href="/help"> Ajuda
+                          <Nav.Link className="nav-link nav-item" href="/ajuda"> 
+                          <FontAwesomeIcon icon={faQuestionCircle} />
                           </Nav.Link>
                           <Nav.Link className="nav-link nav-item" href="/carrinho">
                           {itens_carrinhos == undefined && (
                   <li className="d-flex justify-content-center">
                     Carrinho vazio
                   </li>
-                )} Carrinho
+                )} <FontAwesomeIcon icon={faShoppingCart} /> Carrinho 
                               {itens_carrinhos != undefined && (
                               <li className="d-flex justify-content-center">
                               
@@ -64,7 +67,8 @@ function NavBar() {
               </li>
               )}
                           </Nav.Link>
-                          <Nav.Link className="nav-link nav-item" href="/login"> Entrar
+                          <Nav.Link className="nav-link nav-item" href="/login">
+                          <FontAwesomeIcon icon={faSignIn} /> Entrar
                           </Nav.Link>
                       </Nav>
 

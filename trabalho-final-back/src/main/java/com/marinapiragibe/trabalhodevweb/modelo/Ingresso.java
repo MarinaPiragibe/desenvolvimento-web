@@ -1,6 +1,7 @@
 package com.marinapiragibe.trabalhodevweb.modelo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.DecimalMin;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -31,6 +33,10 @@ public class Ingresso
 
     @ManyToOne
     private Sessao sessao;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ingresso", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Item_carrinho> itens_carrinho;
 
     // ********* Construtores *********
 

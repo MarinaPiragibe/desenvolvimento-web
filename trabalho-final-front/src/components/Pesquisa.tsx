@@ -1,6 +1,8 @@
 import React from "react";
 import { useRef } from "react";
 import useIngressoStore from "../store/ingressoStore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Pesquisa = () => {
 
@@ -22,7 +24,9 @@ const Pesquisa = () => {
      }} 
      className="d-flex mb-3">
       <input defaultValue={tituloFilme} ref={tituloFilmeRef} type="text" className="form-control form-control-sm me-2" placeholder="Pesquisar..." />
-      <button type="submit" className="btn btn-success btn-sm">Pesquisar</button>
+      <button type="submit" className="btn btn-success btn-sm">
+      <FontAwesomeIcon icon={faSearch} />
+      </button>
     </form>
   );
 };

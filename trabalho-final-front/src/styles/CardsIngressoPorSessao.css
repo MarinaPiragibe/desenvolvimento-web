@@ -1,0 +1,6 @@
+.poltrona-number {
+    display: inline-block;
+    background-color: #90e67a; /* Cor amarela pastel */
+    padding: 0.2em 0.5em; /* Ajuste o padding conforme necessário */
+    border-radius: 4px; /* Borda arredondada */
+  }

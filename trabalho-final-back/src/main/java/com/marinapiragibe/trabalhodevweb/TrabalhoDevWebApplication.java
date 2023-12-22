@@ -48,7 +48,7 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         sessaoRepository.save(dezCoisas);
 
         Sessao homemAranha = new Sessao("Homem-aranha: No aranhaverso","21:00", 110);
-        sessaoRepository.save(dezCoisas);
+        sessaoRepository.save(homemAranha);
 
 
         Ingresso ingresso = new Ingresso(
@@ -75,13 +75,13 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         );
         ingressoRepository.save(ingresso3);
 
-//        Ingresso ingresso4 = new Ingresso(
-//                56,
-//                BigDecimal.valueOf(23.70),
-//                homemAranha,
-//                LocalDate.now()
-//        );
-//        ingressoRepository.save(ingresso4);
+        Ingresso ingresso4 = new Ingresso(
+                56,
+                BigDecimal.valueOf(23.70),
+                homemAranha,
+                LocalDate.now()
+        );
+        ingressoRepository.save(ingresso4);
 
         Carrinho carrinho = new Carrinho(
                 LocalDate.now()
@@ -108,12 +108,12 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         );
         item_carrinhoRepository.save(item3);
 
-//        Item_carrinho item4 = new Item_carrinho(
-//                1,
-//                carrinho,
-//                ingresso4
-//        );
-//        item_carrinhoRepository.save(item4);
+        Item_carrinho item4 = new Item_carrinho(
+                1,
+                carrinho,
+                ingresso4
+        );
+        item_carrinhoRepository.save(item4);
 
 
     }
