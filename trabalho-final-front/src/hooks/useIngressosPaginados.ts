@@ -12,7 +12,7 @@ interface IngressosPaginados {
 interface QueryString {
   pagina: number;
   tamanho: number;
-  nome: string;
+  tituloFilme: string;
 }
 
 // const pessoa1 = {nome: "Joao", salario: 5000};

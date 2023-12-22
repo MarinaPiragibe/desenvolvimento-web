@@ -1,49 +1,78 @@
-import { Link } from "react-router-dom";
-import hortifruti from '/hortifruti-icon.png';
-import carrinho from '/carrinho.png';
-import React from "react";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import useRecuperarItensCarrinho from "../hooks/useRecuperarItensCarrinho";
+import React from 'react';
+
+
 
 function NavBar() {
+  // if (removendo) return null;
+
+
+   const {data: itens_carrinhos, isLoading: carregandoItens, error: error} = useRecuperarItensCarrinho();
+
+   if(carregandoItens) return <div>Carregando...</div>
+    if(error) throw(error);
+  
   return (
     <>
-      <div className="container mt-3 mb-2">
-        <div className="row">
-          <div className="col-3 d-flex align-items-center">
-            <Link to="/" style={{ textDecoration: "none", fontSize: "16px" }}>
-              <img className="d-none d-md-block" src={hortifruti} style={{ width: "70px" }} />
-              CineUff
-            </Link>
-          </div>
-          <div className="col-6">
-            <ul style={{ listStyleType: "none" }}>
-              <li className="mt-2 d-flex justify-content-center">
-                Faça seu
-                <Link className="ms-1" to="/login" style={{ textDecoration: "none" }}>
-                  login!
-                </Link>
-              </li>
-              <li className="d-flex justify-content-center">
-                <Link to="/cadastrar-ingresso" style={{ textDecoration: "none" }}>
-                  Cadastrar ingresso
-                </Link>
-              </li>
-              <li className="d-flex justify-content-center">
-                <Link to="/listar-ingressos" style={{ textDecoration: "none" }}>
-                  Listar ingresso
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="col-3 d-flex align-items-center justify-content-end">
-            <Link to="/carrinho" style={{ textDecoration: "none" }}>
-              <img className="d-none d-md-block" src={carrinho} style={{ width: "35px" }} />
-              Carrinho
-            </Link>
-          </div>
-        </div>
-      </div>
 
-      <div className="bg-danger" style={{ padding: "3px" }}></div>
+          <Navbar bg="light" expand="md" className="navbar navbar-light bg-light navbar-expand-md ">
+              <Container className="container mb-4">
+                  <Navbar.Brand className="navbar-brand" href="/"> 
+                  CineUFF
+                  </Navbar.Brand>
+                  <Navbar.Toggle className="navbar-toggler" aria-controls="menu" />
+                  <Navbar.Collapse className="collapse navbar-collapse" id="menu">
+                      <Nav className="navbar-nav mr-auto">
+                          <Nav.Link className="nav-link nav-item" href="/"> Home
+                          </Nav.Link>
+                          <NavDropdown title="Compre" id="dropdownMenuButton">
+                              <NavDropdown.Item className="dropdown-item" href="/listar-ingressos"> Ingressos
+                              </NavDropdown.Item>
+                              
+                          </NavDropdown>
+                          <Nav.Link className="nav-link nav-item" href="/sobre">
+                              Sobre
+                          </Nav.Link>
+                      </Nav>
+                      </Navbar.Collapse>
+                      <Navbar.Collapse className="justify-content-end" id="menu">
+                      <Nav className="navbar-nav">
+                          <Nav.Link className="nav-link nav-item" href="/help"> Ajuda
+                          </Nav.Link>
+                          <Nav.Link className="nav-link nav-item" href="/carrinho">
+                          {itens_carrinhos == undefined && (
+                  <li className="d-flex justify-content-center">
+                    Carrinho vazio
+                  </li>
+                )} Carrinho
+                              {itens_carrinhos != undefined && (
+                              <li className="d-flex justify-content-center">
+                              
+                R${" "}
+                {itens_carrinhos! 
+                  .reduce((total, item) => item.quantidade * item.ingresso.preco + total, 0)
+                  .toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                    useGrouping: true,
+                  })}
+                              
+              </li>
+              )}
+                          </Nav.Link>
+                          <Nav.Link className="nav-link nav-item" href="/login"> Entrar
+                          </Nav.Link>
+                      </Nav>
+
+                  </Navbar.Collapse>
+                  
+              </Container>
+          </Navbar>
+
     </>
   );
 }

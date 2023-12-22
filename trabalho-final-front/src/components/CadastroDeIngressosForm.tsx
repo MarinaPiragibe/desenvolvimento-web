@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Ingresso from "../interfaces/ingresso";
 import { FieldValues, useForm } from "react-hook-form";
 import useCadastrarIngresso from "../hooks/useCadastrarIngresso";
 import useSessoes from "../hooks/useSessoes";
-import dataValida from "../util/dataValida";
 import useApi from "../hooks/useApi";
-import Sessao from "../interfaces/sessao";
 import { URL_SESSOES } from "../util/constants";
+import Sessao from "../interfaces/sessao";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { DevTool } from "@hookform/devtools";
+import useAlterarIngresso from "../hooks/useAlterarIngresso";
+import useIngressoStore from "../store/ingressoStore";
 
 const { recuperar } = useApi<Sessao>(URL_SESSOES);
 let sessoesValidas: Sessao[];
@@ -22,16 +24,11 @@ const validaSessao = async (id: string) => {
 };
 
 
-const regexData = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
+// const regexData = /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/;
 //const regexImagem = /^[a-z]+\.(gif|jpg|png|bmp)$/;
 const schema = z.object({
 
   sessao: z.string().refine(validaSessao, { message: "Sessão inválida." }),
-  dataCompra: z
-    .string()
-    .min(1, { message: "A data de cadastro deve ser informada." })
-    .regex(regexData, { message: "Data inválida." })
-    .refine(dataValida, { message: "Data inválida." }),
   poltrona: z
   .string()
   .refine((value) => /^[0-9]+$/.test(value), { message: "O número da poltrona deve ser um número válido." })
@@ -46,40 +43,74 @@ const schema = z.object({
 type FormIngresso = z.infer<typeof schema>;
 
 const CadastroDeIngressosForm = () => {
-  const { mutate: cadastrarIngresso, error: errorCadastrar  } = useCadastrarIngresso();
-  const { data: sessoes, error: errorSessoes } = useSessoes();
+  
+  const ingressoSelecionado = useIngressoStore(s => s.ingressoSelecionado);
+  const setIngressoSelecionado = useIngressoStore(s => s.setIngressoSelecionado);
+  const tratarIngressoSelecionado = (ingresso: Ingresso) => setIngressoSelecionado(ingresso);
 
-  const { register, handleSubmit, reset, formState: { errors }} = useForm<FormIngresso>({
-    resolver: zodResolver(schema),
-    mode: "onSubmit"});
+
+  const { mutate: cadastrarIngresso, error: errorCadastrar } = useCadastrarIngresso();
+  const { data: sessoes, error: errorCategorias } = useSessoes();
+  const { mutate: alterarIngresso, error: errorAlterar } = useAlterarIngresso();
+
+  const { 
+    setValue,
+    setFocus, 
+    register,
+    formState: { errors, isSubmitSuccessful },
+    control,
+    handleSubmit,
+    reset} = useForm<FormIngresso>
+    ({
+      resolver: zodResolver(schema),
+      mode: "onSubmit"
+  });
 
   const onSubmit = ({
     preco,
     poltrona,
-    dataCompra,
     sessao
   }: FieldValues) => {
     const ingresso: Ingresso = {
       preco: preco,
       poltrona: poltrona,
-      dataCompra: new Date(
-        dataCompra.substring(6, 10) +
-        "-" +
-        dataCompra.substring(3, 5) +
-        "-" +
-        dataCompra.substring(0, 2)
-      ),
+      dataCompra: new Date(Date.now()),
       sessao: { id: sessao, tituloFilme: "", horaInicio: "" },
     };
-    console.log(ingresso);
-    cadastrarIngresso(ingresso);
     reset();
+    if (ingressoSelecionado?.codIngresso) {
+      ingresso.codIngresso = ingressoSelecionado.codIngresso;
+      console.log("alterando")
+      alterarIngresso(ingresso);
+    } else {
+      console.log("cadastrando")
+      cadastrarIngresso(ingresso);
+    }
   };
 
-  if (errorSessoes) throw errorSessoes;
+  useEffect(() => {
+    setFocus("sessao");
+    if (ingressoSelecionado?.codIngresso) {
+      reset();
+      setValue("poltrona", String(ingressoSelecionado.poltrona));
+      setValue("sessao", String(ingressoSelecionado.sessao.id));
+      setValue("preco", String(ingressoSelecionado.preco));
+    }
+  }, [ingressoSelecionado]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+      tratarIngressoSelecionado({} as Ingresso);
+    }
+  }, [isSubmitSuccessful]);
+
+  if (errorCategorias) throw errorCategorias;
   if (errorCadastrar) throw errorCadastrar;
+  if (errorAlterar) throw errorAlterar;
 
   return (
+    <>
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row mb-2">
         <div className="col-xl-2 fw-bold text-start align-self-center">Poltrona</div>
@@ -110,7 +141,7 @@ const CadastroDeIngressosForm = () => {
                 : "form-control form-control-sm"
             }
           >
-            <option value="0">Selecione uma categoria</option>
+            <option value="0">Selecione uma Sessao</option>
             {sessoes?.map((sessao) => (
               <option key={sessao.id} value={sessao.id}>
                 {sessao.horaInicio}
@@ -118,23 +149,6 @@ const CadastroDeIngressosForm = () => {
             ))}
           </select>
           <div className="invalid-feedback">{errors.sessao?.message}</div>
-        </div>
-      </div>
-
-      <div className="row mb-2">
-        <div className="col-xl-2 fw-bold text-start align-self-center">Data Compra</div>
-        <div className="col-xl-10">
-          <input
-            {...register("dataCompra")}
-            type="text"
-            id="dataCompra"
-            className={
-              errors.dataCompra
-                ? "form-control form-control-sm is-invalid"
-                : "form-control form-control-sm"
-            }
-          />
-          <div className="invalid-feedback">{errors.dataCompra?.message}</div>
         </div>
       </div>
 
@@ -158,13 +172,30 @@ const CadastroDeIngressosForm = () => {
       </div>
 
       <div className="row mb-5">
-        <div className="col-xl-10 offset-xl-2 text-end">
-          <button id="botao" type="submit" className="btn btn-primary btn-sm">
-             Cadastrar
-          </button>
+          <div className="col-xl-6">
+            <div className="row">
+              <div className="col-xl-10 offset-xl-2">
+                <button id="botao" type="submit" className="btn btn-primary btn-sm me-2">
+                    {ingressoSelecionado.codIngresso ? " Alterar" : " Cadastrar"}
+                </button>
+                <button
+                  onClick={() => {
+                    reset();
+                    console.log("click");
+                    tratarIngressoSelecionado({} as Ingresso);
+                  }}
+                  id="botao"
+                  type="button"
+                  className="btn btn-danger btn-sm"
+                > Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
     </form>
+    <DevTool control={control} />
+    </>
   );
 };
 

@@ -1,19 +1,27 @@
 import React from "react";
 import { useRef } from "react";
-interface Props {
-  tratarNomePesquisado: (nome: string) => void;
-  nome: string;
-}
-const Pesquisa = ({ tratarNomePesquisado, nome }: Props) => {
-  const nomeRef = useRef<HTMLInputElement>(null);
+import useIngressoStore from "../store/ingressoStore";
+
+const Pesquisa = () => {
+
+  const setTituloFilme = useIngressoStore(s=> s.setTituloFilme);
+  const setPagina = useIngressoStore(s => s.setPagina);
+  const tituloFilme = useIngressoStore(s => s.tituloFilme);
+  
+  const tratarTituloFilmePesquisado = (tituloFilme: string) => {
+    setTituloFilme(tituloFilme);
+    setPagina(0);
+  };
+
+  const tituloFilmeRef = useRef<HTMLInputElement>(null);
 
   return (
     <form onSubmit={(event) => {
         event.preventDefault();
-        tratarNomePesquisado(nomeRef.current!.value);
+        tratarTituloFilmePesquisado(tituloFilmeRef.current!.value);
      }} 
      className="d-flex mb-3">
-      <input defaultValue={nome} ref={nomeRef} type="text" className="form-control form-control-sm me-2" placeholder="Pesquisar..." />
+      <input defaultValue={tituloFilme} ref={tituloFilmeRef} type="text" className="form-control form-control-sm me-2" placeholder="Pesquisar..." />
       <button type="submit" className="btn btn-success btn-sm">Pesquisar</button>
     </form>
   );

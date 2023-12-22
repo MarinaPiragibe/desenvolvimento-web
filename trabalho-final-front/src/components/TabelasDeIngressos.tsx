@@ -1,13 +1,46 @@
 import dayjs from "dayjs";
 import React from "react";
 import Ingresso from "../interfaces/ingresso";
+import useIngressoStore from "../store/ingressoStore";
+import useRemoverIngresso from "../hooks/useRemoverIngresso";
+import useIngressosPaginados from "../hooks/useIngressosPaginados";
 
-interface Props {
-  ingressos: Ingresso[];
-  tratarRemocaoDeIngresso: (id: number) => void;
-}
+const TabelasDeIngressos = () => {
+  
+  const pagina = useIngressoStore(s => s.pagina);
+  const tamanho = useIngressoStore(s => s.tamanho);
+  const tituloFilme = useIngressoStore(s => s.tituloFilme);
 
-const TabelasDeIngressos = ({ ingressos, tratarRemocaoDeIngresso }: Props) => {
+  const setPagina = useIngressoStore(s => s.setPagina);
+  const setIngressoSelecionado = useIngressoStore(s => s.setIngressoSelecionado);
+  
+  const tratarRemocaoDeIngresso = (id: number) => {
+    removerIngresso(id);
+    setPagina(0);
+  };
+  const tratarIngressoSelecionado = (ingresso: Ingresso) => setIngressoSelecionado(ingresso);
+  
+  const {
+    data: ingressoRemovido,
+    mutate: removerIngresso,
+    isLoading: removendo,
+    error: erroRemocao,
+  } = useRemoverIngresso();
+
+  const {
+    data: ingressosPaginados,
+    isLoading,
+    error,
+  } = useIngressosPaginados({ pagina, tamanho, tituloFilme });
+
+  // if (removendo) return null;
+  if (isLoading) return <h6>Carregando...</h6>;
+
+  if (error) throw error;
+  if (erroRemocao) throw erroRemocao;
+
+  const ingressos = ingressosPaginados!.itens;
+  
   return (
     <table className="table table-responsive table-bordered table-sm">
       <thead>
@@ -23,11 +56,15 @@ const TabelasDeIngressos = ({ ingressos, tratarRemocaoDeIngresso }: Props) => {
       <tbody>
         {ingressos.map((ingresso) => (
           <tr key={ingresso.codIngresso}>
-            <td className="align-middle text-center">{ingresso.codIngresso}</td>
+            <td className="align-middle text-center">
+              <a className="link-underline" onClick={() => tratarIngressoSelecionado(ingresso)}>
+                {ingresso.codIngresso}
+              </a>{" "}
+              </td>
             <td className="align-middle text-center">{ingresso.sessao.horaInicio}</td>
             <td className="align-middle">{ingresso.sessao.tituloFilme}</td>
             <td className="align-middle text-center">
-              {dayjs(ingresso.dataCompra).format("DD/MM/YYYY")}
+              {ingresso.poltrona}
             </td>
             <td className="align-middle text-end pe-3">
               {ingresso.preco.toLocaleString("pt-BR", {

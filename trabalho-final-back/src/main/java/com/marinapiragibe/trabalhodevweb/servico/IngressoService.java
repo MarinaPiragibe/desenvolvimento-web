@@ -61,6 +61,7 @@ public class IngressoService
     }
 
     public List<Ingresso> recuperarIngressosPorTituloFilme(String tituloFilme) {
+        System.out.println(tituloFilme);
         return ingressoRepository.findBySessaoTituloFilme(tituloFilme);
     }
 
@@ -74,10 +75,6 @@ public class IngressoService
     public Page<Ingresso> recuperarIngressosPaginados(String tituloFilme, Pageable pageable) {
         return ingressoRepository.recuperarIngressosPaginados(tituloFilme, pageable);
     }
-
-
-
-
 
 
 }

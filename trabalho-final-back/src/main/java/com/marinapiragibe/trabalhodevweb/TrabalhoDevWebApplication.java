@@ -1,12 +1,13 @@
 package com.marinapiragibe.trabalhodevweb;
 
+import com.marinapiragibe.trabalhodevweb.modelo.Carrinho;
 import com.marinapiragibe.trabalhodevweb.modelo.Ingresso;
+import com.marinapiragibe.trabalhodevweb.modelo.Item_carrinho;
 import com.marinapiragibe.trabalhodevweb.modelo.Sessao;
+import com.marinapiragibe.trabalhodevweb.repository.CarrinhoRepository;
 import com.marinapiragibe.trabalhodevweb.repository.IngressoRepository;
+import com.marinapiragibe.trabalhodevweb.repository.Item_CarrinhoRepository;
 import com.marinapiragibe.trabalhodevweb.repository.SessaoRepository;
-import com.marinapiragibe.trabalhodevweb.servico.IngressoService;
-import com.marinapiragibe.trabalhodevweb.util.Util;
-import corejava.Console;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @SpringBootApplication
 public class TrabalhoDevWebApplication implements CommandLineRunner {
@@ -24,6 +24,12 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
 
     @Autowired
     SessaoRepository sessaoRepository;
+
+    @Autowired
+    private CarrinhoRepository carrinhoRepository;
+
+    @Autowired
+    private Item_CarrinhoRepository item_carrinhoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(TrabalhoDevWebApplication.class, args);
@@ -35,10 +41,13 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         Sessao nossoSonho = new Sessao("Nosso Sonho","14:00", 120);
         sessaoRepository.save(nossoSonho);
 
-        Sessao bastardosInglorios = new Sessao("Bastarodos Inglorios","22:00", 160);
+        Sessao bastardosInglorios = new Sessao("Bastardos Inglórios","22:00", 160);
         sessaoRepository.save(bastardosInglorios);
 
-        Sessao dezCoisas = new Sessao("Dez coisas que odeio em você","17:00", 100);
+        Sessao dezCoisas = new Sessao("Dez coisas que eu odeio em você","17:00", 100);
+        sessaoRepository.save(dezCoisas);
+
+        Sessao homemAranha = new Sessao("Homem-aranha: No aranhaverso","21:00", 110);
         sessaoRepository.save(dezCoisas);
 
 
@@ -66,6 +75,45 @@ public class TrabalhoDevWebApplication implements CommandLineRunner {
         );
         ingressoRepository.save(ingresso3);
 
+//        Ingresso ingresso4 = new Ingresso(
+//                56,
+//                BigDecimal.valueOf(23.70),
+//                homemAranha,
+//                LocalDate.now()
+//        );
+//        ingressoRepository.save(ingresso4);
+
+        Carrinho carrinho = new Carrinho(
+                LocalDate.now()
+        );
+        carrinhoRepository.save(carrinho);
+        Item_carrinho item1 = new Item_carrinho(
+                3,
+                carrinho,
+                ingresso
+        );
+        item_carrinhoRepository.save(item1);
+
+        Item_carrinho item2 = new Item_carrinho(
+                5,
+                carrinho,
+                ingresso2
+        );
+        item_carrinhoRepository.save(item2);
+
+        Item_carrinho item3 = new Item_carrinho(
+                4,
+                carrinho,
+                ingresso3
+        );
+        item_carrinhoRepository.save(item3);
+
+//        Item_carrinho item4 = new Item_carrinho(
+//                1,
+//                carrinho,
+//                ingresso4
+//        );
+//        item_carrinhoRepository.save(item4);
 
 
     }

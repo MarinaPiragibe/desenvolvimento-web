@@ -89,7 +89,7 @@ public class IngressoController {
     public ResultadoPaginado<Ingresso> recuperarIngressosPaginados(
             @RequestParam(name="pagina", defaultValue = "0") int pagina,
             @RequestParam(name="tamanho", defaultValue = "3") int tamanho,
-            @RequestParam(name="nome", defaultValue = "") String nome
+            @RequestParam(name="tituloFilme", defaultValue = "") String nome
     ) {
         Pageable pageable = PageRequest.of(pagina, tamanho);
         Page<Ingresso> paginaDeProduto = ingressoService.recuperarIngressosPaginados(nome, pageable);
